@@ -12,51 +12,74 @@ const canvasHeight = 500;
  *
  */
 
+colours = ["#f1f1f1","#ffd206","#ef3423","#1f4492","#0fa1d4","#048a35","#3b2f2f"]
+
 const letterA = {
-  // coreType: 1, // 0 = circle, 1 = triangle, 2 = square
-  coreSize: 80,
-  secondCoreSize: 70,
-  // numRays: 3,
-  // orbitalSpread: 60,
-  // orbitalAngle: 60
+  "offsetX": 0,
+  "offsetY": 0,
+  "circularStations": 7,
+  "size": 125,
+  "connections": [
+    [1, 2],
+    [2, 3],
+    [3, 4],
+    [4, 5],
+    [5, 6],
+    [6, 0],
+    [0, 7]
+  ],
+  "customStationX": 62.5,
+  "customStationY": 65,
+  "lineColour": colours[2]
 }
 
 const letterB = {
-  // coreType: 0,
-  coreSize: 100,
-  secondsCoreSize: 90,
-  // numRays: 8,
-  // orbitalSpread: 90,
-  // orbitalAngle: 0
+  "offsetX": 0,
+  "offsetY": 0,
+  "circularStations": 9,
+  "size": 125,
+  "connections": [
+    [0, 1],
+    [1, 2],
+    [2, 3],
+    [3, 4],
+    [4, 5],
+    [5, 6],
+    [6, 7],
+    [7, 8],
+    [8, 0],
+    [0, 9]
+  ],
+  "customStations": [
+    { x: 62.5, y: -150 }
+  ],
+  "lineColour": colours[3]
 }
 
 const letterC = {
-  // coreType: 2,
-  coreSize: 60,
-  secondCoreSize: 50,
-  // numRays: 2,
-  // orbitalSpread: 60,
-  // orbitalAngle: 90
+  "offsetX": 0,
+  "offsetY": 0,
+  "circularStations": 5,
+  "size": 125,
+  "connections": [
+    [0, 1],
+    [1, 2],
+    [2, 3],
+    [3, 4]
+  ],
+  "customStations": [],
+  "lineColour": colours[5],
 }
 
+const backgroundColor = colours[0]
 
 
-const backgroundColor  = "#d9d6dd";
-
-const blueColor  = "#324dd4";
-const pumpkin  = "#fd893e";
-const pinkColor  = "#ff41ae";
 
 
 function setup () {
   // create the drawing canvas, save the canvas element
   main_canvas = createCanvas(canvasWidth, canvasHeight);
   main_canvas.parent('canvasContainer');
-
-  // color/stroke setup
-  // stroke(blueColor);
-  // strokeWeight(4);
-
 
   // with no animation, redrawing the screen is not necessary
   noLoop();
@@ -76,72 +99,51 @@ function draw () {
   drawLetter(center_x + 250, center_y, letterC)
 }
 
+
 function drawLetter(posx, posy, letterData) {
-  let coreSize = letterData["coreSize"]
-  let numRays = letterData["numRays"]
-  let orbitalSpread = letterData["orbitalSpread"]
-  let orbitalAngle = letterData["orbitalAngle"]
-  let coreType = letterData["coreType"]
-  let secondCoreSize = letterData["secondCoreSize"]
+  let offsetX = posx + letterData["offsetX"];
+  let offsetY = posy + letterData["offsetY"];
+  let circularStations = letterData["circularStations"];
+  let size = letterData["size"];
+  let connections = letterData["connections"] || [];
+  let lineColour = letterData["lineColour"]
+  let customStationX = letterData["customStationX"]
+  let customStationY = letterData["customStationY"]
 
-  // core circle
+  let stations = [];
+
+  // Store all station positions
+  for (let i = 0; i < circularStations; i++) {
+    let angle = TWO_PI * i / circularStations;
+    let stationX = offsetX + cos(angle) * (size / 2);
+    let stationY = offsetY + sin(angle) * (size / 2);
+    stations.push({ x: stationX, y: stationY });
+  }
+
+
+  let ex = offsetX + customStationX;
+  let ey = offsetY + customStationY;
+  stations.push({ x: ex, y: ey });
+
+
+  // Draw connections
+  stroke(lineColour);
+  strokeWeight(5);
+  for (let i = 0; i < connections.length; i++) {
+    let [indexA, indexB] = connections[i];
+    let a = stations[indexA];
+    let b = stations[indexB];
+    line(a.x, a.y, b.x, b.y);
+  }
+
+  // Draw stations
+  fill(colours[0]);
+  stroke(colours[6]);
   strokeWeight(3);
-  fill(pinkColor)
-  stroke(blueColor)
-
-  fill(pinkColor)
-  ellipse(posx, posy, coreSize);
-  noStroke()
-  fill(50, 77, 212, 150)
-  ellipse(posx + 30, posy + 30, secondCoreSize);
-
-
-
-  // if (coreType == 0) {
-  //   // circle
-    
-    
-  // }
-  // else if (coreType == 1) {
-  //   // triangle
-  //   beginShape()
-  //   let r = coreSize / 2;
-  //   for (let i = 0; i < 3; i++) {
-  //     let angle = TWO_PI * i / 3; // equilateral triangle
-  //     let vx = posx + cos(angle) * r;
-  //     let vy = posy + sin(angle) * r;
-  //     vertex(vx, vy);
-  //   }
-  //   endShape(CLOSE);
-  // }
-  // else if (coreType == 2) {
-  //   // square
-  //   rect(posx - coreSize / 2, posy - coreSize / 2, coreSize, coreSize);
-  // }
-
-  // stroke(blueColor)
-  // // radial rays
-  // // math was assited by ChatGPT
-  // for (let i = 0; i < numRays; i++) {
-  //   let angle = TWO_PI * i / numRays;
-  //   let x1 = posx + cos(angle) * (coreSize / 2);
-  //   let y1 = posy + sin(angle) * (coreSize / 2);
-  //   let x2 = posx + cos(angle) * (coreSize / 2 + 30);
-  //   let y2 = posy + sin(angle) * (coreSize / 2 + 30);
-  //   line(x1, y1, x2, y2);
-  // }
-
-  // // // orbiting dots
-  // // // math was assited by ChatGPT
-  // let baseAngle = radians(orbitalAngle); // convert from degrees
-  // for (let i = 0; i < 3; i++) {
-  //   let angle = TWO_PI * i / 3 + baseAngle;
-  //   let orbX = posx + cos(angle) * orbitalSpread;
-  //   let orbY = posy + sin(angle) * orbitalSpread;
-  //   noStroke();
-  //   fill(pumpkin);
-  //   ellipse(orbX, orbY, 10);
-  // }
+  for (let i = 0; i < stations.length; i++) {
+    let s = stations[i];
+    ellipse(s.x, s.y, 12);
+  }
 }
 
 
