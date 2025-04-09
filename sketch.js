@@ -43,7 +43,7 @@ const letterB = {
   "customConnectionY": -150,
   "customConnectionX2": -60,
   "customConnectionY2": -30,
-  "lineColour": colours[3]
+  "lineColour": "#1f4492"
 }
 
 const letterC = {
@@ -94,7 +94,7 @@ function draw () {
 
   // draw the letters A, B, C from saved data
   drawLetter(center_x - 250, center_y, letterA)
-  drawLetter(center_x      , center_y, letterB)
+  drawLetter(center_x      , center_y, letterI)
   drawLetter(center_x + 250, center_y, letterC)
 }
 

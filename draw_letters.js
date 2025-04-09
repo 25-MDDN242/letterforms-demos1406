@@ -13,8 +13,8 @@ var systemBoxColor = "#C73869";
  * from (0,0) to (100, 200)
  */
 function drawLetter(letterData) {
-  let offsetX = posx + letterData["offsetX"];
-  let offsetY = posy + letterData["offsetY"];
+  let offsetX = 50 + letterData["offsetX"];
+  let offsetY = 150 + letterData["offsetY"];
   let numStations = letterData["numStations"];
   let size = letterData["size"];
   let numConnections = letterData["numConnections"]
@@ -30,38 +30,56 @@ function drawLetter(letterData) {
 
   let stations = [];
 
+  let cx = offsetX + customStationX;
+  let cy = offsetY + customStationY;
+  
   // Store all station positions
   for (let i = 0; i < numStations; i++) {
     let x, y;
-  
-    if (layout === "circle") {
+    if (layout == 1) { // circle
       let angle = TWO_PI * i / numStations;
       x = offsetX + cos(angle) * (size / 2);
       y = offsetY + sin(angle) * (size / 2);
-    } else if (layout === "line") {
+    } else if (layout == 2) { // just a line
       let spacing = size / (numStations - 1); // space between points
       x = offsetX + cos(radians(lineAngle)) * spacing * i;
       y = offsetY + sin(radians(lineAngle)) * spacing * i;
+    } else if (layout == 3) { // top curve line
+      let spacing = size / (numStations - 1);
+      x = offsetX + cos(radians(lineAngle)) * spacing * i;
+      y = offsetY + sin(radians(lineAngle)) * spacing * i;
+      if(i == 0){
+        stroke(lineColour);
+        strokeWeight(5);
+        drawAngularLine(x, y, cx - 20, cy, cx, cy)
+      }
+    } else if( layout == 4) { // bottom curve line
+      let spacing = size / (numStations - 1);
+      x = offsetX + cos(radians(lineAngle)) * spacing * i;
+      y = offsetY + sin(radians(lineAngle)) * spacing * i;
+      if(i == numStations - 1){
+        stroke(lineColour);
+        strokeWeight(5);
+        drawAngularLine(x, y, cx + 20, cy, cx, cy)
+      }
     }
-  
+
     stations.push({ x: x, y: y });
   }
-
-
-  let ex = offsetX + customStationX;
-  let ey = offsetY + customStationY;
-  stations.push({ x: ex, y: ey });
+  stations.push({ x: cx, y: cy });
 
 
   // Draw connections
   stroke(lineColour);
   strokeWeight(5);
   for (let i = 0; i < numConnections; i++) {
-    if (i + 1 >= stations.length) break;  // don’t go out of bounds
+    if (i + 1 >= stations.length) break;
     let a = stations[i];
     let b = stations[i + 1];
     line(a.x, a.y, b.x, b.y);
   }
+  
+
   // Draw custom connection
   line(offsetX + customConnectionX, offsetY + customConnectionY, offsetX + customConnectionX2, offsetY + customConnectionY2);
 
@@ -74,6 +92,11 @@ function drawLetter(letterData) {
     let s = stations[i];
     ellipse(s.x, s.y, 12);
   }
+}
+
+function drawAngularLine(x1, y1, mx, my, x2, y2) {
+  line(x1, y1, mx, my);
+  line(mx, my, x2, y2);
 }
 
 function interpolate_letter(percent, oldObj, newObj) {
