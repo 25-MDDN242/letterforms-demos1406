@@ -17,14 +17,11 @@ function drawLetter(letterData) {
   let offsetY = 150 + letterData["offsetY"];
   let numStations = letterData["numStations"];
   let size = letterData["size"];
-  let numConnections = letterData["numConnections"]
   let lineColour = letterData["lineColour"]
   let customStationX = letterData["customStationX"]
   let customStationY = letterData["customStationY"]
   let customConnectionX = letterData["customConnectionX"]
   let customConnectionY = letterData["customConnectionY"]
-  let customConnectionX2 = letterData["customConnectionX2"]
-  let customConnectionY2 = letterData["customConnectionY2"]
   let layout = letterData["layout"]
   let lineAngle = letterData["lineAngle"]
 
@@ -50,7 +47,7 @@ function drawLetter(letterData) {
       y = offsetY + sin(radians(lineAngle)) * spacing * i;
       if(i == 0){
         stroke(lineColour);
-        strokeWeight(5);
+        strokeWeight(6);
         drawAngularLine(x, y, cx - 20, cy, cx, cy)
       }
     } else if( layout == 4) { // bottom curve line
@@ -59,7 +56,7 @@ function drawLetter(letterData) {
       y = offsetY + sin(radians(lineAngle)) * spacing * i;
       if(i == numStations - 1){
         stroke(lineColour);
-        strokeWeight(5);
+        strokeWeight(6);
         drawAngularLine(x, y, cx + 20, cy, cx, cy)
       }
     }
@@ -71,8 +68,8 @@ function drawLetter(letterData) {
 
   // Draw connections
   stroke(lineColour);
-  strokeWeight(5);
-  for (let i = 0; i < numConnections; i++) {
+  strokeWeight(6);
+  for (let i = 0; i < numStations - 1; i++) {
     if (i + 1 >= stations.length) break;
     let a = stations[i];
     let b = stations[i + 1];
@@ -81,8 +78,7 @@ function drawLetter(letterData) {
   
 
   // Draw custom connection
-  line(offsetX + customConnectionX, offsetY + customConnectionY, offsetX + customConnectionX2, offsetY + customConnectionY2);
-
+  line(offsetX + customConnectionX, offsetY + customConnectionY, offsetX + customStationX, offsetY + customStationY);
 
   // Draw stations
   fill("#f1f1f1");
@@ -94,21 +90,70 @@ function drawLetter(letterData) {
   }
 }
 
-function drawAngularLine(x1, y1, mx, my, x2, y2) {
-  line(x1, y1, mx, my);
-  line(mx, my, x2, y2);
+// function assisted by ChatGPT
+function drawAngularLine(x1, y1, x2, y2, inputMidX, inputMidY) {
+  // Calculate the rectangle bounds.
+  let left = min(x1, x2)
+  let right = max(x1, x2)
+  let top = min(y1, y2)
+  let bottom = max(y1, y2)
+
+  // Create vectors for easy management.
+  let start = createVector(x1, y1)
+  let end = createVector(x2, y2)
+  let inputMid = createVector(inputMidX, inputMidY)
+
+  // Map the input midpoint onto the rectangle edges.
+  let candidates = [
+    createVector(constrain(inputMidX, left, right), top),      // Top edge
+    createVector(right, constrain(inputMidY, top, bottom)),     // Right edge
+    createVector(constrain(inputMidX, left, right), bottom),    // Bottom edge
+    createVector(left, constrain(inputMidY, top, bottom))       // Left edge
+  ]
+
+  // Find the candidate closest to the input midpoint.
+  let snappedMid = candidates.reduce((closest, current) => 
+    p5.Vector.dist(inputMid, current) < p5.Vector.dist(inputMid, closest) ? current : closest
+  )
+
+  // Draw the two line segments.
+  line(start.x, start.y, snappedMid.x, snappedMid.y)
+  line(snappedMid.x, snappedMid.y, end.x, end.y)
 }
+
+
+
+
 
 function interpolate_letter(percent, oldObj, newObj) {
   let new_letter = {};
   new_letter["size"]    = map(percent, 0, 100, oldObj["size"], newObj["size"]);
-  new_letter["offsetx"] = map(percent, 0, 100, oldObj["offsetx"], newObj["offsetx"]);
-  new_letter["offsety"] = map(percent, 0, 100, oldObj["offsety"], newObj["offsety"]);
+  new_letter["offsetX"] = map(percent, 0, 100, oldObj["offsetX"], newObj["offsetX"]);
+  new_letter["offsetY"] = map(percent, 0, 100, oldObj["offsetY"], newObj["offsetY"]);
+  new_letter["numStations"] = map(percent, 0, 100, oldObj["numStations"], newObj["numStations"]);
+  new_letter["layout"] = map(percent, 0, 100, oldObj["layout"], newObj["layout"]);
+  new_letter["lineColour"] = lerpColor(color(oldObj["lineColour"]), color(newObj["lineColour"]), percent / 100);
+  new_letter["customStationX"] = map(percent, 0, 100, oldObj["customStationX"], newObj["customStationX"]);
+  new_letter["customStationY"] = map(percent, 0, 100, oldObj["customStationY"], newObj["customStationY"]);
+  new_letter["customConnectionX"] = map(percent, 0, 100, oldObj["customConnectionX"], newObj["customConnectionX"]);
+  new_letter["customConnectionY"] = map(percent, 0, 100, oldObj["customConnectionY"], newObj["customConnectionY"]);
+  new_letter["lineAngle"] = map(percent, 0, 100, oldObj["lineAngle"], newObj["lineAngle"]);
   return new_letter;
 }
 
 var swapWords = [
-  "ABBAABBA",
-  "CAB?CAB?",
-  "BAAAAAAA"
+  "AUCKLAND",
+  "HONGKONG",
+  "LONDON ",
+  "SHANGHAI",
+  "ISTANBUL",
+  "CAPETOWN",
+  "NEW YORK",
+  "SANTIAGO",
+  "YOKOHAMA",
+  "BRISBANE",
+  "PORTLAND",
+  "FLORENCE",
+  "BUDAPEST",
+  "PASADENA"
 ]

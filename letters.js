@@ -1,8 +1,11 @@
 const alphabet = {
   "default": {
-    "size": 40,
-    "offsetx": 0,
-    "offsety": 0
+    "offsetX": 0,
+    "offsetY": -5,
+    "numStations": 5,
+    "layout": 1,
+    "size": 100,
+    "lineColour": "#F29DB2"
   },
   "A": {
     "offsetX": 0,
@@ -10,13 +13,10 @@ const alphabet = {
     "numStations": 6,
     "layout": 1, // 1: circle, 2: line, 3: top curve, 4: bottom curve, 5: closed loop
     "size": 100,
-    "numConnections": 5,
     "customStationX": 55,
     "customStationY": 45,
     "customConnectionX": 50,
     "customConnectionY": 0,
-    "customConnectionX2": 55,
-    "customConnectionY2": 45,
     "lineColour": "#ef3423"
   },
   "B": {
@@ -25,13 +25,10 @@ const alphabet = {
     "numStations": 9,
     "layout": 1,
     "size": 100,
-    "numConnections": 8,
     "customStationX": -45,
     "customStationY": -140,
     "customConnectionX": -45,
-    "customConnectionY": -140,
-    "customConnectionX2": -45,
-    "customConnectionY2": -10,
+    "customConnectionY": -10,
     "lineColour": "#1f4492"
   },
   "C": {
@@ -40,7 +37,6 @@ const alphabet = {
     "numStations": 5,
     "layout": 1,
     "size": 100,
-    "numConnections": 5,
     "lineColour": "#ffd206"
   },
   "D": {
@@ -49,13 +45,10 @@ const alphabet = {
     "numStations": 9,
     "layout": 1,
     "size": 100,
-    "numConnections": 8,
     "customStationX": 50,
     "customStationY": -140,
     "customConnectionX": 50,
-    "customConnectionY": -140,
-    "customConnectionX2": 50,
-    "customConnectionY2": 0,
+    "customConnectionY": 0,
     "lineColour": "#048a35"
   },
   "E": {
@@ -64,13 +57,10 @@ const alphabet = {
     "numStations": 7,
     "layout": 1,
     "size": 100,
-    "numConnections": 6,
     "customStationX": -15,
     "customStationY": -5,
-    "customConnectionX": -15,
-    "customConnectionY": -5,
-    "customConnectionX2": 35,
-    "customConnectionY2": -40,
+    "customConnectionX": 35,
+    "customConnectionY": -40,
     "lineColour": "#0fa1d4"
   },
   "F": {
@@ -80,7 +70,6 @@ const alphabet = {
     "customStationY": -50,
     "numStations": 5,
     "size": 125,
-    "numConnections": 4,
     "layout": 3,
     "lineAngle": 90,
     "lineColour": "#ef3423"
@@ -91,13 +80,10 @@ const alphabet = {
     "numStations": 8,
     "layout": 1,              
     "size": 100,
-    "numConnections": 7,
     "customStationX": 0,
     "customStationY": 115,
     "customConnectionX": 50,
-    "customConnectionY": 0,
-    "customConnectionX2": 50,
-    "customConnectionY2": 90,
+    "customConnectionY": 90,
     "lineColour": "#048a35"
   },
   "H": {
@@ -107,7 +93,6 @@ const alphabet = {
     "customStationY": 175,
     "numStations": 6,
     "size": 175,
-    "numConnections": 5,
     "layout": 2,
     "lineAngle": 90,
     "lineColour": "#F29DB2"
@@ -119,7 +104,6 @@ const alphabet = {
     "size": 100,
     "customStationX": 0,
     "customStationY": -50,
-    "numConnections": 4,
     "layout": 2,
     "lineAngle": 90,
     "lineColour": "#0fa1d4"
@@ -131,7 +115,6 @@ const alphabet = {
     "customStationY": 155,
     "numStations": 4,
     "size": 125,
-    "numConnections": 3,
     "layout": 4,
     "lineAngle": 90,
     "lineColour": "#1f4492"
@@ -143,13 +126,10 @@ const alphabet = {
     "customStationY": 0,
     "numStations": 6,
     "size": 175,
-    "numConnections": 5,
     "layout": 2,
     "lineAngle": 90,
-    "customConnectionX": 70,
-    "customConnectionY": 0,
-    "customConnectionX2": 0,
-    "customConnectionY2": 80,
+    "customConnectionX": 0,
+    "customConnectionY": 80,
     "lineColour": "#ffd206"
   },
   "L": {
@@ -157,7 +137,6 @@ const alphabet = {
     "offsetY": -130,
     "numStations": 6,
     "size": 175,
-    "numConnections": 5,
     "layout": 2,
     "lineAngle": 90,
     "lineColour": "#ef3423"
@@ -168,7 +147,6 @@ const alphabet = {
     "numStations": 5,
     "layout": 1,
     "size": 50,
-    "numConnections": 5,
     "lineColour": "#F29DB2"
   },
   "N": {
@@ -178,7 +156,6 @@ const alphabet = {
     "customStationY": 100,
     "numStations": 4,
     "size": 100,
-    "numConnections": 3,
     "layout": 3,
     "lineAngle": 90,
     "lineColour": "#ef3423"
@@ -189,7 +166,6 @@ const alphabet = {
     "numStations": 5,
     "layout": 1,
     "size": 100,
-    "numConnections": 5,
     "lineColour": "#F29DB2"
   },
   "P": {
@@ -198,13 +174,10 @@ const alphabet = {
     "numStations": 8,
     "layout": 1,
     "size": 100,
-    "numConnections": 7,
     "customStationX": -45,
     "customStationY": 140,
     "customConnectionX": -45,
-    "customConnectionY": 140,
-    "customConnectionX2": -45,
-    "customConnectionY2": -10,
+    "customConnectionY": -10,
     "lineColour": "#1f4492"
   },
   "Q": {
@@ -213,13 +186,10 @@ const alphabet = {
     "numStations": 7,
     "layout": 1,
     "size": 100,
-    "numConnections": 6,
     "customStationX": 50,
     "customStationY": 140,
     "customConnectionX": 50,
-    "customConnectionY": 140,
-    "customConnectionX2": 50,
-    "customConnectionY2": 0,
+    "customConnectionY": 0,
     "lineColour": "#0fa1d4"
   },
   "R": {
@@ -228,7 +198,6 @@ const alphabet = {
     "numStations": 5,
     "layout": 1,
     "size": 50,
-    "numConnections": 5,
     "lineColour": "#F29DB2"
   },
   "S": {
@@ -237,7 +206,6 @@ const alphabet = {
     "numStations": 5,
     "layout": 1,
     "size": 50,
-    "numConnections": 5,
     "lineColour": "#F29DB2"
   },
   "T": {
@@ -251,7 +219,6 @@ const alphabet = {
     "customConnectionY": 85,
     "customConnectionX2": 0,
     "customConnectionY2": 85,
-    "numConnections": 4,
     "layout": 2,
     "lineAngle": 90,
     "lineColour": "#1f4492"
@@ -262,7 +229,6 @@ const alphabet = {
     "numStations": 5,
     "layout": 1,
     "size": 50,
-    "numConnections": 5,
     "lineColour": "#F29DB2"
   },
   "V": {
@@ -270,7 +236,6 @@ const alphabet = {
     "offsetY": -50,
     "numStations": 4,
     "size": 100,
-    "numConnections": 3,
     "layout": 2,
     "customStationX": 85,
     "customStationY": 0,
@@ -287,7 +252,6 @@ const alphabet = {
     "numStations": 5,
     "layout": 1,
     "size": 50,
-    "numConnections": 5,
     "lineColour": "#F29DB2"
   },
   "X": {
@@ -295,7 +259,6 @@ const alphabet = {
     "offsetY": -50,
     "numStations": 5,
     "size": 125,
-    "numConnections": 4,
     "layout": 2,
     "customStationX": 85,
     "customStationY": 0,
@@ -312,7 +275,6 @@ const alphabet = {
     "numStations": 5,
     "layout": 1,
     "size": 50,
-    "numConnections": 5,
     "lineColour": "#F29DB2"
   },
   "Z": {
@@ -320,7 +282,6 @@ const alphabet = {
     "offsetY": -50,
     "numStations": 4,
     "size": 100,
-    "numConnections": 3,
     "layout": 2,
     "customStationX": -55,
     "customStationY": 0,
@@ -337,7 +298,6 @@ const alphabet = {
     "numStations": 7,
     "layout": 1,
     "size": 100,
-    "numConnections": 6,
     "lineColour": "#ffd206"
   },
   "1": {
@@ -351,7 +311,6 @@ const alphabet = {
     "customConnectionY2": 0,
     "numStations": 5,
     "size": 150,
-    "numConnections": 4,
     "layout": 2,
     "lineAngle": 90,
     "lineColour": "#F29DB2"
@@ -362,43 +321,63 @@ const alphabet = {
     "numStations": 5,
     "layout": 1,
     "size": 50,
-    "numConnections": 5,
     "lineColour": "#F29DB2"
   },
   "3": {
-    "size": 40,
-    "offsetx": 0,
-    "offsety": 17
+    "offsetX": 0,
+    "offsetY": -5,
+    "numStations": 5,
+    "layout": 1,
+    "size": 100,
+    "lineColour": "#F29DB2"
   },
   "4": {
-    "size": 40,
-    "offsetx": 0,
-    "offsety": 17
+    "offsetX": 0,
+    "offsetY": -5,
+    "numStations": 5,
+    "layout": 1,
+    "size": 100,
+    "lineColour": "#F29DB2"
   },
   "5": {
-    "size": 40,
-    "offsetx": 0,
-    "offsety": 17
+    "offsetX": 0,
+    "offsetY": -5,
+    "numStations": 5,
+    "layout": 1,
+    "size": 100,
+    "lineColour": "#F29DB2"
   },
   "6": {
-    "size": 40,
-    "offsetx": 0,
-    "offsety": 17
+    "offsetX": 0,
+    "offsetY": -5,
+    "numStations": 5,
+    "layout": 1,
+    "size": 100,
+    "lineColour": "#F29DB2"
   },
   "7": {
-    "size": 40,
-    "offsetx": 0,
-    "offsety": 17
+    "offsetX": 0,
+    "offsetY": -5,
+    "numStations": 5,
+    "layout": 1,
+    "size": 100,
+    "lineColour": "#F29DB2"
   },
   "8": {
-    "size": 40,
-    "offsetx": 0,
-    "offsety": 17
+    "offsetX": 0,
+    "offsetY": -5,
+    "numStations": 5,
+    "layout": 1,
+    "size": 100,
+    "lineColour": "#F29DB2"
   },
   "9": {
-    "size": 40,
-    "offsetx": 0,
-    "offsety": 17
+    "offsetX": 0,
+    "offsetY": -5,
+    "numStations": 5,
+    "layout": 1,
+    "size": 100,
+    "lineColour": "#F29DB2"
   }
 
 }
