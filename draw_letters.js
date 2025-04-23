@@ -22,48 +22,47 @@ function drawLetter(letterData) {
   let customStationY = letterData["customStationY"]
   let customConnectionX = letterData["customConnectionX"]
   let customConnectionY = letterData["customConnectionY"]
+  let connectionStyle = letterData["connectionStyle"]
   let layout = letterData["layout"]
   let lineAngle = letterData["lineAngle"]
 
   let stations = [];
 
-  let cx = offsetX + customStationX;
-  let cy = offsetY + customStationY;
+  let c1x = offsetX + customStationX;
+  let c1y = offsetY + customStationY;
   
-  // Store all station positions
-  for (let i = 0; i < numStations; i++) {
-    let x, y;
-    if (layout == 1) { // circle
-      let angle = TWO_PI * i / numStations;
-      x = offsetX + cos(angle) * (size / 2);
-      y = offsetY + sin(angle) * (size / 2);
-    } else if (layout == 2) { // just a line
-      let spacing = size / (numStations - 1); // space between points
-      x = offsetX + cos(radians(lineAngle)) * spacing * i;
-      y = offsetY + sin(radians(lineAngle)) * spacing * i;
-    } else if (layout == 3) { // top curve line
-      let spacing = size / (numStations - 1);
-      x = offsetX + cos(radians(lineAngle)) * spacing * i;
-      y = offsetY + sin(radians(lineAngle)) * spacing * i;
-      if(i == 0){
-        stroke(lineColour);
-        strokeWeight(6);
-        drawAngularLine(x, y, cx - 20, cy, cx, cy)
-      }
-    } else if( layout == 4) { // bottom curve line
-      let spacing = size / (numStations - 1);
-      x = offsetX + cos(radians(lineAngle)) * spacing * i;
-      y = offsetY + sin(radians(lineAngle)) * spacing * i;
-      if(i == numStations - 1){
-        stroke(lineColour);
-        strokeWeight(6);
-        drawAngularLine(x, y, cx + 20, cy, cx, cy)
-      }
+  if (layout === 4) { // zig zag
+    // zig‑zag layout entirely self‑contained
+    let step = size / (numStations - 1);
+    for (let i = 0; i < numStations; i++) {
+      let x = offsetX + step * i;
+      let y = offsetY + (i % 2 === 0 ? 0 : size);
+      stations.push({ x, y });
     }
-
-    stations.push({ x: x, y: y });
+  } else {
+    for (let i = 0; i < numStations; i++) {
+      let x, y;
+      if (layout == 1 || layout == 3) { // circle
+        let angle = TWO_PI * i / numStations;
+        x = offsetX + cos(angle) * (size/2);
+        y = offsetY + sin(angle) * (size/2);
+      } else { // line
+        let spacing = size / (numStations-1);
+        x = offsetX + cos(radians(lineAngle)) * spacing * i;
+        y = offsetY + sin(radians(lineAngle)) * spacing * i;
+      }
+      stations.push({ x, y });
+    }
   }
-  stations.push({ x: cx, y: cy });
+
+  let c1 = { x: c1x, y: c1y}
+
+  if (layout !== 3) {
+    stations.push(c1);  
+  }
+
+
+  
 
 
   // Draw connections
@@ -75,10 +74,21 @@ function drawLetter(letterData) {
     let b = stations[i + 1];
     line(a.x, a.y, b.x, b.y);
   }
+
+  if (layout == 3 && stations.length > 1) {
+    let first = stations[0],
+        last  = stations[stations.length-1];
+    line(last.x, last.y, first.x, first.y);
+  }
   
 
-  // Draw custom connection
-  line(offsetX + customConnectionX, offsetY + customConnectionY, offsetX + customStationX, offsetY + customStationY);
+  // Draw custom connections
+  let startX = offsetX + customConnectionX;
+  let startY = offsetY + customConnectionY;
+  let endX = offsetX + customStationX;
+  let endY = offsetY + customStationY;
+
+  drawCustomConnection(startX, startY, endX, endY, connectionStyle);
 
   // Draw stations
   fill("#f1f1f1");
@@ -88,38 +98,82 @@ function drawLetter(letterData) {
     let s = stations[i];
     ellipse(s.x, s.y, 12);
   }
+
+  // Draw custom stations
+  ellipse(c1x, c1y, 12);
+  ellipse(startX, startY, 12);
 }
 
-// function assisted by ChatGPT
-function drawAngularLine(x1, y1, x2, y2, inputMidX, inputMidY) {
-  // Calculate the rectangle bounds.
-  let left = min(x1, x2)
-  let right = max(x1, x2)
-  let top = min(y1, y2)
-  let bottom = max(y1, y2)
 
-  // Create vectors for easy management.
-  let start = createVector(x1, y1)
-  let end = createVector(x2, y2)
-  let inputMid = createVector(inputMidX, inputMidY)
-
-  // Map the input midpoint onto the rectangle edges.
-  let candidates = [
-    createVector(constrain(inputMidX, left, right), top),      // Top edge
-    createVector(right, constrain(inputMidY, top, bottom)),     // Right edge
-    createVector(constrain(inputMidX, left, right), bottom),    // Bottom edge
-    createVector(left, constrain(inputMidY, top, bottom))       // Left edge
-  ]
-
-  // Find the candidate closest to the input midpoint.
-  let snappedMid = candidates.reduce((closest, current) => 
-    p5.Vector.dist(inputMid, current) < p5.Vector.dist(inputMid, closest) ? current : closest
-  )
-
-  // Draw the two line segments.
-  line(start.x, start.y, snappedMid.x, snappedMid.y)
-  line(snappedMid.x, snappedMid.y, end.x, end.y)
+function drawAngularLine(x1, y1, mx, my, x2, y2) {
+  line(x1, y1, mx, my);
+  line(mx, my, x2, y2);
 }
+
+function drawCustomConnection(x1, y1, x2, y2, style = 0, ratio = 0.7){
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+
+  switch (style) {
+    case 1: {
+      // horizontal then angled into the target
+      let mx = x1 + dx * ratio;
+      let my = y1;
+      drawAngularLine(x1, y1, mx, my, x2, y2);
+      return;
+    }
+    case 2: {
+      // │ then diagonal into the target
+      let mx = x1
+      let my = y1 + dy * ratio;
+      drawAngularLine(x1, y1, mx, my, x2, y2);
+      return;
+    }
+    case 3: {
+      // diagonal out, then horizontal
+      let mx = x1 + dx * ratio;
+      let my = y1 + dy * ratio;
+      drawAngularLine(x1,y1,mx,my,x2,my);
+      return;
+    }
+
+    case 4: {
+      // diagonal out, then vertical
+      let mx = x1 + dx * ratio;
+      let my = y1 + dy * ratio;
+      drawAngularLine(x1,y1,mx,my,mx,y2);
+      return;
+    }
+  }
+
+  // — fallback to your old quadrant logic —
+  if (dx === 0 || dy === 0) {
+    drawAngularLine(x1, y1, x2, y2, x2, y2);
+    return;
+  }
+  let mx, my;
+  if (x2 > x1 && y2 < y1) {
+    mx = x1 + dx * ratio;
+    my = y2;
+  } else if (x2 > x1 && y2 > y1) {
+    mx = x1 + dx * ratio;
+    my = y1;
+  } else if (x2 < x1 && y2 > y1) {
+    mx = x1;
+    my = y1 + dy * ratio;
+  } else {
+    if (Math.abs(dx) > Math.abs(dy)) {
+      mx = x1 + dx * ratio;
+      my = y1;
+    } else {
+      mx = x1;
+      my = y1 + dy * ratio;
+    }
+  }
+  drawAngularLine(x1, y1, mx, my, x2, y2);
+}
+
+
 
 
 
@@ -144,7 +198,6 @@ function interpolate_letter(percent, oldObj, newObj) {
 var swapWords = [
   "AUCKLAND",
   "HONGKONG",
-  "LONDON ",
   "SHANGHAI",
   "ISTANBUL",
   "CAPETOWN",
