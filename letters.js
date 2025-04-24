@@ -4,11 +4,11 @@ let colours = ["#F29DB2","#ffd206","#ef3423","#1f4492","#0fa1d4","#048a35"]
 const alphabet = {
   "default": {
     "offsetX": 0,
-    "offsetY": 0,
+    "offsetY": -50,
     "numStations": 5,
     "layout": 3,
     "size": 50,
-    "lineColour": "#F29DB2"
+    "lineColour": "#1f4492"
   },
   "A": {
     "offsetX": 0,
@@ -16,10 +16,10 @@ const alphabet = {
     "numStations": 6,
     "layout": 1, // 1: circle, 2: line, 3: top curve, 4: bottom curve, 5: closed loop
     "connectionStyle" : 1,
-    "size": 100,
-    "customStationX": 50,
-    "customStationY": 45,
-    "customConnectionX": 50,
+    "size": 90,
+    "customStationX": 45,
+    "customStationY": 40,
+    "customConnectionX": 45,
     "customConnectionY": 0,
     "lineColour": "#048a35"
   },
@@ -28,10 +28,10 @@ const alphabet = {
     "offsetY": -5,
     "numStations": 8,
     "layout": 3,
-    "size": 100,
-    "customStationX": -50,
+    "size": 90,
+    "customStationX": -45,
     "customStationY": -140,
-    "customConnectionX": -50,
+    "customConnectionX": -45,
     "customConnectionY": 0,
     "lineColour": "#ef3423"
   },
@@ -40,7 +40,7 @@ const alphabet = {
     "offsetY": -5,
     "numStations": 5,
     "layout": 1,
-    "size": 100,
+    "size": 90,
     "lineColour": "#0fa1d4"
   },
   "D": {
@@ -48,10 +48,10 @@ const alphabet = {
     "offsetY": -5,
     "numStations": 8,
     "layout": 1,
-    "size": 100,
-    "customStationX": 50,
+    "size": 90,
+    "customStationX": 45,
     "customStationY": -140,
-    "customConnectionX": 50,
+    "customConnectionX": 45,
     "customConnectionY": 0,
     "lineColour": "#ef3423"
   },
@@ -60,11 +60,11 @@ const alphabet = {
     "offsetY": -5,
     "numStations": 7,
     "layout": 1,
-    "size": 100,
-    "customStationX": 0,
+    "size": 90,
+    "customStationX": -5,
     "customStationY": -5,
-    "customConnectionX": 32,
-    "customConnectionY": -40,
+    "customConnectionX": 28,
+    "customConnectionY": -35,
     "lineColour": "#048a35"
   },
   "F": {
@@ -85,10 +85,10 @@ const alphabet = {
     "offsetY": -7,
     "numStations": 8,
     "layout": 1,              
-    "size": 100,
+    "size": 90,
     "customStationX": 10,
     "customStationY": 115,
-    "customConnectionX": 50,
+    "customConnectionX": 45,
     "customConnectionY": 0,
     "lineColour": "#ef3423"
   },
@@ -186,7 +186,7 @@ const alphabet = {
     "offsetY": 0,
     "numStations": 6,
     "layout": 3,
-    "size": 100,
+    "size": 90,
     "lineColour": "#048a35"
   },
   "P": {
@@ -194,10 +194,10 @@ const alphabet = {
     "offsetY": -5,
     "numStations": 8,
     "layout": 3,
-    "size": 100,
-    "customStationX": -50,
+    "size": 90,
+    "customStationX": -45,
     "customStationY": 140,
-    "customConnectionX": -50,
+    "customConnectionX": -45,
     "customConnectionY": 0,
     "lineColour": "#ef3423"
   },
@@ -206,10 +206,10 @@ const alphabet = {
     "offsetY": -5,
     "numStations": 7,
     "layout": 1,
-    "size": 100,
-    "customStationX": 50,
+    "size": 90,
+    "customStationX": 45,
     "customStationY": 140,
-    "customConnectionX": 50,
+    "customConnectionX": 45,
     "customConnectionY": 0,
     "lineColour": "#0fa1d4"
   },
@@ -335,102 +335,82 @@ const alphabet = {
   "0": {
     "offsetX": 0,
     "offsetY": -50,
-    "numStations": 8,
+    "numStations": 0,
     "layout": 3,
     "size": 100,
-    "lineColour": "#F29DB2"
+    "lineColour": "#1f4492"
   },
   "1": {
-    "offsetX": 15,
-    "offsetY": -125,
-    "customStationX": -35,
-    "customStationY": 10,
-    "customConnectionX": 0,
-    "customConnectionY": 0,
-    "connectionStyle": 3,
-    "numStations": 5,
-    "size": 150,
-    "layout": 2,
-    "lineAngle": 90,
-    "lineColour": "#F29DB2"
+    "offsetX": -50,
+    "offsetY": -50,
+    "numStations": 1,
+    "size": 100,
+    "layout": 1,
+    "lineColour": "#ef3423"
   },
   "2": {
-    "offsetX": 25,
-    "offsetY": -125,
-    "customStationX": -60,
-    "customStationY": 45,
-    "customConnectionX": 0,
-    "customConnectionY": 0,
-    "connectionStyle": 1,
-    "numStations": 6,
-    "size": 150,
-    "layout": 2,
-    "lineAngle": 105,
-    "lineColour": "#F29DB2"
+    "offsetX": 0,
+    "offsetY": -50,
+    "numStations": 2,
+    "size": 90,
+    "layout": 1,
+    "lineColour": "#ef3423"
   },
   "3": {
-    "offsetX": 0,
-    "offsetY": -5,
-    "numStations": 5,
-    "layout": 1,
-    "size": 100,
-    "lineColour": "#F29DB2"
+    "offsetX": -10,
+    "offsetY": -50,
+    "numStations": 3,
+    "size": 90,
+    "layout": 3,
+    "lineColour": "#ffd206"
   },
   "4": {
     "offsetX": 0,
-    "offsetY": -5,
-    "numStations": 5,
-    "layout": 1,
-    "size": 100,
-    "lineColour": "#F29DB2"
+    "offsetY": -50,
+    "numStations": 4,
+    "size": 90,
+    "layout": 3,
+    "lineColour": "#ffd206"
   },
   "5": {
     "offsetX": 0,
-    "offsetY": -5,
+    "offsetY": -50,
     "numStations": 5,
-    "layout": 1,
-    "size": 100,
-    "lineColour": "#F29DB2"
+    "size": 90,
+    "layout": 3,
+    "lineColour": "#048a35"
   },
   "6": {
     "offsetX": 0,
-    "offsetY": -5,
-    "numStations": 5,
+    "offsetY": -50,
+    "numStations": 6,
+    "size": 90,
     "layout": 3,
-    "size": 100,
-    "customStationX": 20,
-    "customStationY": -120,
-    "customConnectionX": -41,
-    "customConnectionY": -29,
-    "lineColour": "#F29DB2"
+    "lineColour": "#048a35"
   },
   "7": {
     "offsetX": 0,
-    "offsetY": -5,
-    "numStations": 5,
-    "layout": 1,
-    "size": 100,
-    "lineColour": "#F29DB2"
+    "offsetY": -50,
+    "numStations": 7,
+    "size": 90,
+    "layout": 3,
+    "lineColour": "#0fa1d4"
   },
   "8": {
     "offsetX": 0,
-    "offsetY": -5,
-    "numStations": 5,
-    "layout": 1,
-    "size": 100,
-    "lineColour": "#F29DB2"
+    "offsetY": -50,
+    "numStations": 8,
+    "size": 90,
+    "layout": 3,
+    "lineColour": "#0fa1d4"
   },
   "9": {
     "offsetX": 0,
-    "offsetY": -80,
-    "numStations": 5,
+    "offsetY": -50,
+    "numStations": 9,
+    "size": 90,
     "layout": 3,
-    "size": 100,
-    "customStationX": 20,
-    "customStationY": 120,
-    "customConnectionX": 50,
-    "customConnectionY": 0,
-    "lineColour": "#F29DB2"
+    "lineColour": "#1f4492"
   }
 
 }
