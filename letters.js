@@ -6,7 +6,7 @@ const alphabet = {
     "offsetX": 0,
     "offsetY": -50,
     "numStations": 5,
-    "layout": 3,
+    "layout": 3, // 1: closed circle, 2: line, 3: open circle, 4: zig-zag
     "size": 50,
     "lineColour": "#1f4492"
   },
@@ -14,7 +14,7 @@ const alphabet = {
     "offsetX": 0,
     "offsetY": 0,
     "numStations": 6,
-    "layout": 1, // 1: circle, 2: line, 3: top curve, 4: bottom curve, 5: closed loop
+    "layout": 1, 
     "connectionStyle" : 1,
     "size": 90,
     "customStationX": 45,
@@ -27,7 +27,7 @@ const alphabet = {
     "offsetX": 0,
     "offsetY": -5,
     "numStations": 8,
-    "layout": 3,
+    "layout": 1,
     "size": 90,
     "customStationX": -45,
     "customStationY": -140,
@@ -39,7 +39,7 @@ const alphabet = {
     "offsetX": 0,
     "offsetY": -5,
     "numStations": 5,
-    "layout": 1,
+    "layout": 3,
     "size": 90,
     "lineColour": "#0fa1d4"
   },
@@ -47,7 +47,7 @@ const alphabet = {
     "offsetX": 0,
     "offsetY": -5,
     "numStations": 8,
-    "layout": 1,
+    "layout": 3,
     "size": 90,
     "customStationX": 45,
     "customStationY": -140,
@@ -59,7 +59,7 @@ const alphabet = {
     "offsetX": 0,
     "offsetY": -5,
     "numStations": 7,
-    "layout": 1,
+    "layout": 3,
     "size": 90,
     "customStationX": -5,
     "customStationY": -5,
@@ -185,7 +185,7 @@ const alphabet = {
     "offsetX": 0,
     "offsetY": 0,
     "numStations": 6,
-    "layout": 3,
+    "layout": 1,
     "size": 90,
     "lineColour": "#048a35"
   },
@@ -193,7 +193,7 @@ const alphabet = {
     "offsetX": 0,
     "offsetY": -5,
     "numStations": 8,
-    "layout": 3,
+    "layout": 1,
     "size": 90,
     "customStationX": -45,
     "customStationY": 140,
@@ -205,7 +205,7 @@ const alphabet = {
     "offsetX": 0,
     "offsetY": -5,
     "numStations": 7,
-    "layout": 1,
+    "layout": 3,
     "size": 90,
     "customStationX": 45,
     "customStationY": 140,
@@ -230,7 +230,7 @@ const alphabet = {
     "offsetX": -10,
     "offsetY": -30,
     "numStations": 3,
-    "layout": 1,
+    "layout": 3,
     "size": 75,
     "customStationX": 0,
     "customStationY": 75,
@@ -361,7 +361,7 @@ const alphabet = {
     "offsetY": -50,
     "numStations": 3,
     "size": 90,
-    "layout": 3,
+    "layout": 1,
     "lineColour": "#ffd206"
   },
   "4": {
@@ -369,7 +369,7 @@ const alphabet = {
     "offsetY": -50,
     "numStations": 4,
     "size": 90,
-    "layout": 3,
+    "layout": 1,
     "lineColour": "#ffd206"
   },
   "5": {
@@ -377,7 +377,7 @@ const alphabet = {
     "offsetY": -50,
     "numStations": 5,
     "size": 90,
-    "layout": 3,
+    "layout": 1,
     "lineColour": "#048a35"
   },
   "6": {
@@ -385,7 +385,7 @@ const alphabet = {
     "offsetY": -50,
     "numStations": 6,
     "size": 90,
-    "layout": 3,
+    "layout": 1,
     "lineColour": "#048a35"
   },
   "7": {
@@ -393,7 +393,7 @@ const alphabet = {
     "offsetY": -50,
     "numStations": 7,
     "size": 90,
-    "layout": 3,
+    "layout": 1,
     "lineColour": "#0fa1d4"
   },
   "8": {
@@ -401,7 +401,7 @@ const alphabet = {
     "offsetY": -50,
     "numStations": 8,
     "size": 90,
-    "layout": 3,
+    "layout": 1,
     "lineColour": "#0fa1d4"
   },
   "9": {
@@ -409,7 +409,7 @@ const alphabet = {
     "offsetY": -50,
     "numStations": 9,
     "size": 90,
-    "layout": 3,
+    "layout": 1,
     "lineColour": "#1f4492"
   }
 

@@ -5,9 +5,19 @@
  * ["object_field", minimum_bound, maximum_bound]
  */
 const sliderInfo = [
-  ["size",       0, 100],
-  ["offsetx",  -30,  30],
-  ["offsety", -100, 100]
+  ["layout",     2, 2], // 1
+  ["size",       50, 200], // 2
+  ["offsetX",  -30,  30], // 3
+  ["offsetY", -100, 100], // 4
+  ["numStations", 0, 10], // 5
+  ["lineColour", 0, 100], // 6
+  ["lineAngle",  0, 360], // 7
+  ["customStationX", -100, 100], // 8 
+  ["customStationY", -100, 100], // 9
+  ["customConnectionX", -100, 100], // 10
+  ["customConnectionY", -100, 100], // 11
+  ["connectionStyle", 0, 1], // 12
+
 ];
 
 // PROBABLY DON'T NEED TO EDIT ANYTHING ELSE. STOP HERE.
