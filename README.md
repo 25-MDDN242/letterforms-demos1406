@@ -7,6 +7,16 @@
 Each of my letters is composed with two circles. The size and position of the first circle is fixed, but the location and size of the second circle is controlled by three parameters.
 
 The three parameters per letter:
-  * `size` : radius of the second circle
-  * `offsetx` : x offset of the second circle relative to the first one
-  * `offsety` : y offset of the second circle relative to the first one
+  * `size` : size of the letter
+  * `offsetx` : x offset of the letter from the centre
+  * `offsety` : y offset of the letter from the centre
+  * `numStations` : number of stations in the letter
+  * `lineColour` : colour of the letter, associated with sound
+  * `customStationX` : x position of a custom station away from the letter
+  * `customStationY` : y position of a custom station away from the letter
+  * `customConnectionX` : x position of the second station on the custom line
+  * `customConnectionY` : y position of the second station on the custom line
+  * `connectionStyle` : allows you to adjust how the custom stations are connected, whether horizontal then angled, angled then horizontal, vertical then angled, or angled then vertical.
+  * `layout` : y offset of the second circle relative to the first one
+  * `lineAngle` : y offset of the second circle relative to the first one
+

@@ -14,17 +14,18 @@ const alphabet = {
     "connectionStyle": 3
   },
   "A": {
-    "offsetX": 0,
-    "offsetY": 0,
-    "numStations": 6,
-    "layout": 3, 
-    "connectionStyle" : 1,
+    "layout": 1,
     "size": 90,
-    "customStationX": 45,
-    "customStationY": 40,
-    "customConnectionX": 45,
-    "customConnectionY": 0,
-    "lineColour": 5
+    "offsetX": -10,
+    "offsetY": 0,
+    "numStations": 5,
+    "lineColour": 5,
+    "lineAngle": -93,
+    "customStationX": 53,
+    "customStationY": 42,
+    "customConnectionX": -20,
+    "customConnectionY": -80,
+    "connectionStyle": 1
   },
   "B": {
     "offsetX": 0,
@@ -43,7 +44,7 @@ const alphabet = {
     "offsetY": -5,
     "numStations": 5,
     "layout": 3,
-    "size": 90,
+    "size": 100,
     "lineColour": 4
   },
   "D": {
@@ -63,11 +64,11 @@ const alphabet = {
     "offsetY": -5,
     "numStations": 7,
     "layout": 3,
-    "size": 90,
+    "size": 95,
     "customStationX": -5,
     "customStationY": -5,
-    "customConnectionX": 28,
-    "customConnectionY": -35,
+    "customConnectionX": 29,
+    "customConnectionY": -37,
     "lineColour": 5
   },
   "F": {
@@ -338,8 +339,8 @@ const alphabet = {
   "0": {
     "offsetX": 0,
     "offsetY": -50,
-    "numStations": 0,
-    "layout": 3,
+    "numStations": 10,
+    "layout": 1,
     "size": 100,
     "lineColour": 3
   },

@@ -204,15 +204,15 @@ function interpolate_letter(percent, oldObj, newObj) {
 
   // piecewise station count, but skip 2:
   if (percent < 50) {
-    // shrink old → 0
-    let raw = map(percent, 0, 50, oldObj["numStations"], 0);
+    // shrink old → 1
+    let raw = map(percent, 0, 50, oldObj["numStations"], 1);
     let n   = Math.round(raw);
     if (n == 2) n = 1;            // skip over 2 on the way down
     new_letter["numStations"] = n;
   }
   else {
-    // grow 0 → new
-    let raw = map(percent, 50, 100, 0, newObj["numStations"]);
+    // grow 1 → new
+    let raw = map(percent, 50, 100, 1, newObj["numStations"]);
     let n   = Math.round(raw);
     if (n == 2) n = 3;            // skip over 2 on the way up
     new_letter["numStations"] = n;
@@ -232,16 +232,21 @@ function interpolate_letter(percent, oldObj, newObj) {
 }
 
 var swapWords = [
+  "TRAINSET",
   "AUCKLAND",
+  "BRISBANE",
+  " LONDON ",
   "HONGKONG",
   "SHANGHAI",
+  " ATHENS ",
   "ISTANBUL",
   "CAPETOWN",
+  " BERLIN ",
   "NEW YORK",
   "SANTIAGO",
   "YOKOHAMA",
-  "BRISBANE",
   "PORTLAND",
+  " BOSTON ",
   "FLORENCE",
   "BUDAPEST",
   "PASADENA"
