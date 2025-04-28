@@ -94,7 +94,7 @@ function draw () {
 
   // draw the letters A, B, C from saved data
   drawLetter(center_x - 250, center_y, letterA)
-  drawLetter(center_x      , center_y, letterI)
+  drawLetter(center_x      , center_y, letterB)
   drawLetter(center_x + 250, center_y, letterC)
 }
 

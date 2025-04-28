@@ -44,14 +44,18 @@ function drawLetter(letterData) {
   } else {
     for (let i = 0; i < numStations; i++) {
       let x, y;
-      if (layout == 1 || layout == 3) { // circle (open or closed)
-        let angle = TWO_PI * i / numStations;
-        x = offsetX + cos(angle) * (size/2);
-        y = offsetY + sin(angle) * (size/2);
-      } else { // line
-        let spacing = size / (numStations-1);
-        x = offsetX + cos(radians(lineAngle)) * spacing * i;
-        y = offsetY + sin(radians(lineAngle)) * spacing * i;
+      if (layout == 1 || layout == 3) {
+        // true circle in radians
+        const radius  = size / 2;
+        const theta   = TWO_PI * i / numStations;     // already in radians
+        x = offsetX + Math.cos(theta) * radius;
+        y = offsetY + Math.sin(theta) * radius;
+      } else {
+        // straight-line at arbitrary angle, converted to radians
+        const spacing = size / (numStations - 1);
+        const theta   = radians(lineAngle);           // p5's radians(): deg→rad
+        x = offsetX + Math.cos(theta) * spacing * i;
+        y = offsetY + Math.sin(theta) * spacing * i;
       }
       stations.push({ x, y });
     }
@@ -63,8 +67,11 @@ function drawLetter(letterData) {
     stations.push(c1);  
   }
 
+  let colours = ["#F29DB2","#ffd206","#ef3423","#1f4492","#0fa1d4","#048a35"]
+
+
   // Draw connections
-  stroke(lineColour);
+  stroke(colours[lineColour]);
   strokeWeight(6);
   for (let i = 0; i < numStations - 1; i++) {
     if (i + 1 >= stations.length) break;
@@ -133,16 +140,16 @@ function drawCustomConnection(x1, y1, x2, y2, style = 0, ratio = 0.7){
     case 3: {
       // diagonal out, then horizontal
       let mx = x1 + dx * ratio;
-      let my = y1 + dy * ratio;
-      drawAngularLine(x1,y1,mx,my,x2,my);
+      let my = y2
+      drawAngularLine(x1,y1,mx,my,x2,y2);
       return;
     }
 
     case 4: {
       // diagonal out, then vertical
-      let mx = x1 + dx * ratio;
+      let mx = x2
       let my = y1 + dy * ratio;
-      drawAngularLine(x1,y1,mx,my,mx,y2);
+      drawAngularLine(x1,y1,mx,my,x2,y2);
       return;
     }
   }

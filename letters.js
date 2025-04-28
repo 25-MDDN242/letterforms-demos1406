@@ -1,27 +1,30 @@
-let colours = ["#F29DB2","#ffd206","#ef3423","#1f4492","#0fa1d4","#048a35"]
-
-
 const alphabet = {
   "default": {
+    "layout": 1,
+    "size": 24,
     "offsetX": 0,
     "offsetY": -50,
     "numStations": 5,
-    "layout": 3, // 1: closed circle, 2: line, 3: open circle, 4: zig-zag
-    "size": 50,
-    "lineColour": "#1f4492"
+    "lineColour": 3,
+    "lineAngle": 0,
+    "customStationX": 0,
+    "customStationY": 0,
+    "customConnectionX": 0,
+    "customConnectionY": 0,
+    "connectionStyle": 3
   },
   "A": {
     "offsetX": 0,
     "offsetY": 0,
     "numStations": 6,
-    "layout": 1, 
+    "layout": 3, 
     "connectionStyle" : 1,
     "size": 90,
     "customStationX": 45,
     "customStationY": 40,
     "customConnectionX": 45,
     "customConnectionY": 0,
-    "lineColour": "#048a35"
+    "lineColour": 5
   },
   "B": {
     "offsetX": 0,
@@ -33,7 +36,7 @@ const alphabet = {
     "customStationY": -140,
     "customConnectionX": -45,
     "customConnectionY": 0,
-    "lineColour": "#ef3423"
+    "lineColour": 2
   },
   "C": {
     "offsetX": 0,
@@ -41,7 +44,7 @@ const alphabet = {
     "numStations": 5,
     "layout": 3,
     "size": 90,
-    "lineColour": "#0fa1d4"
+    "lineColour": 4
   },
   "D": {
     "offsetX": 0,
@@ -53,7 +56,7 @@ const alphabet = {
     "customStationY": -140,
     "customConnectionX": 45,
     "customConnectionY": 0,
-    "lineColour": "#ef3423"
+    "lineColour": 2
   },
   "E": {
     "offsetX": 0,
@@ -65,7 +68,7 @@ const alphabet = {
     "customStationY": -5,
     "customConnectionX": 28,
     "customConnectionY": -35,
-    "lineColour": "#048a35"
+    "lineColour": 5
   },
   "F": {
     "offsetX": -25,
@@ -78,7 +81,7 @@ const alphabet = {
     "size": 125,
     "layout": 2,
     "lineAngle": 90,
-    "lineColour": "#ffd206"
+    "lineColour": 1
   },
   "G": {
     "offsetX": 0,
@@ -90,7 +93,7 @@ const alphabet = {
     "customStationY": 115,
     "customConnectionX": 45,
     "customConnectionY": 0,
-    "lineColour": "#ef3423"
+    "lineColour": 2
   },
   "H": {
     "offsetX": -30,
@@ -103,7 +106,7 @@ const alphabet = {
     "size": 175,
     "layout": 2,
     "lineAngle": 90,
-    "lineColour": "#ffd206"
+    "lineColour": 1
   },
   "I": {
     "offsetX": 0,
@@ -114,7 +117,7 @@ const alphabet = {
     "customStationY": -50,
     "layout": 2,
     "lineAngle": 90,
-    "lineColour": "#048a35"
+    "lineColour": 5
   },
   "J": {
     "offsetX": 0,
@@ -127,7 +130,7 @@ const alphabet = {
     "size": 125,
     "layout": 2,
     "lineAngle": 90,
-    "lineColour": "#0fa1d4"
+    "lineColour": 4
   },
   "K": {
     "offsetX": -30,
@@ -140,7 +143,7 @@ const alphabet = {
     "lineAngle": 90,
     "customConnectionX": 0,
     "customConnectionY": 70,
-    "lineColour": "#ef3423"
+    "lineColour": 2
   },
   "L": {
     "offsetX": -20,
@@ -154,7 +157,7 @@ const alphabet = {
     "size": 175,
     "layout": 2,
     "lineAngle": 90,
-    "lineColour": "#1f4492"
+    "lineColour": 3
   },
   "M": {
     "offsetX": -30,
@@ -166,7 +169,7 @@ const alphabet = {
     "numStations": 4,
     "layout": 4,
     "size": 75,
-    "lineColour": "#1f4492"
+    "lineColour": 3
   },
   "N": {
     "offsetX": -45,
@@ -179,7 +182,7 @@ const alphabet = {
     "size": 100,
     "layout": 2,
     "lineAngle": 90,
-    "lineColour": "#1f4492"
+    "lineColour": 3
   },
   "O": {
     "offsetX": 0,
@@ -187,7 +190,7 @@ const alphabet = {
     "numStations": 6,
     "layout": 1,
     "size": 90,
-    "lineColour": "#048a35"
+    "lineColour": 5
   },
   "P": {
     "offsetX": 0,
@@ -199,7 +202,7 @@ const alphabet = {
     "customStationY": 140,
     "customConnectionX": -45,
     "customConnectionY": 0,
-    "lineColour": "#ef3423"
+    "lineColour": 2
   },
   "Q": {
     "offsetX": 0,
@@ -211,7 +214,7 @@ const alphabet = {
     "customStationY": 140,
     "customConnectionX": 45,
     "customConnectionY": 0,
-    "lineColour": "#0fa1d4"
+    "lineColour": 4
   },
   "R": {
     "offsetX": -30,
@@ -224,7 +227,7 @@ const alphabet = {
     "size": 100,
     "layout": 2,
     "lineAngle": 90,
-    "lineColour": "#1f4492"
+    "lineColour": 3
   },
   "S": {
     "offsetX": -10,
@@ -236,7 +239,7 @@ const alphabet = {
     "customStationY": 75,
     "customConnectionX": 38,
     "customConnectionY": 0,
-    "lineColour": "#ffd206"
+    "lineColour": 1
   },
   "T": {
     "offsetX": -10,
@@ -249,7 +252,7 @@ const alphabet = {
     "customConnectionY": 87,
     "layout": 2,
     "lineAngle": 90,
-    "lineColour": "#ef3423"
+    "lineColour": 2
   },
   "U": {
     "offsetX": 45,
@@ -263,7 +266,7 @@ const alphabet = {
     "size": 100,
     "layout": 2,
     "lineAngle": 90,
-    "lineColour": "#048a35"
+    "lineColour": 5
   },
   "V": {
     "offsetX": -45,
@@ -277,7 +280,7 @@ const alphabet = {
     "customConnectionY": 90.5,
     "connectionStyle": 1,
     "lineAngle": 65,
-    "lineColour": "#ffd206"
+    "lineColour": 1
   },
   "W": {
     "offsetX": -50,
@@ -290,7 +293,7 @@ const alphabet = {
     "numStations": 4,
     "layout": 4,
     "size": 75,
-    "lineColour": "#1f4492"
+    "lineColour": 3
   },
   "X": {
     "offsetX": -45,
@@ -303,7 +306,7 @@ const alphabet = {
     "customConnectionX": 15,
     "customConnectionY": 89,
     "lineAngle": 45,
-    "lineColour": "#ffd206"
+    "lineColour": 1
   },
   "Y": {
     "offsetX": -40,
@@ -317,7 +320,7 @@ const alphabet = {
     "customConnectionY": -85,
     "connectionStyle": 1,
     "lineAngle": -65,
-    "lineColour": "#048a35"
+    "lineColour": 5
   },
   "Z": {
     "offsetX": -20,
@@ -330,7 +333,7 @@ const alphabet = {
     "customConnectionX": 42,
     "customConnectionY": -90,
     "lineAngle": -65,
-    "lineColour": "#ffd206"
+    "lineColour": 1
   },
   "0": {
     "offsetX": 0,
@@ -338,7 +341,7 @@ const alphabet = {
     "numStations": 0,
     "layout": 3,
     "size": 100,
-    "lineColour": "#1f4492"
+    "lineColour": 3
   },
   "1": {
     "offsetX": -50,
@@ -346,7 +349,7 @@ const alphabet = {
     "numStations": 1,
     "size": 100,
     "layout": 1,
-    "lineColour": "#ef3423"
+    "lineColour": 2
   },
   "2": {
     "offsetX": 0,
@@ -354,7 +357,7 @@ const alphabet = {
     "numStations": 2,
     "size": 90,
     "layout": 1,
-    "lineColour": "#ef3423"
+    "lineColour": 2
   },
   "3": {
     "offsetX": -10,
@@ -362,7 +365,7 @@ const alphabet = {
     "numStations": 3,
     "size": 90,
     "layout": 1,
-    "lineColour": "#ffd206"
+    "lineColour": 1
   },
   "4": {
     "offsetX": 0,
@@ -370,7 +373,7 @@ const alphabet = {
     "numStations": 4,
     "size": 90,
     "layout": 1,
-    "lineColour": "#ffd206"
+    "lineColour": 1
   },
   "5": {
     "offsetX": 0,
@@ -378,7 +381,7 @@ const alphabet = {
     "numStations": 5,
     "size": 90,
     "layout": 1,
-    "lineColour": "#048a35"
+    "lineColour": 5
   },
   "6": {
     "offsetX": 0,
@@ -386,7 +389,7 @@ const alphabet = {
     "numStations": 6,
     "size": 90,
     "layout": 1,
-    "lineColour": "#048a35"
+    "lineColour": 5
   },
   "7": {
     "offsetX": 0,
@@ -394,7 +397,7 @@ const alphabet = {
     "numStations": 7,
     "size": 90,
     "layout": 1,
-    "lineColour": "#0fa1d4"
+    "lineColour": 4
   },
   "8": {
     "offsetX": 0,
@@ -402,7 +405,7 @@ const alphabet = {
     "numStations": 8,
     "size": 90,
     "layout": 1,
-    "lineColour": "#0fa1d4"
+    "lineColour": 4
   },
   "9": {
     "offsetX": 0,
@@ -410,7 +413,7 @@ const alphabet = {
     "numStations": 9,
     "size": 90,
     "layout": 1,
-    "lineColour": "#1f4492"
+    "lineColour": 3
   }
 
 }
