@@ -25,11 +25,11 @@ const sliderInfo = [
 const numSliders = sliderInfo.length;
 
 if (typeof systemBackgroundColor === 'undefined') {
-    var systemBackgroundColor = "#e3eded";
+    var systemBackgroundColor = "#f1f1f1";
 }
 
 // this will use variables if they are already defined
-// var systemBackgroundColor = systemBackgroundColor || "#e3eded";
+// var systemBackgroundColor = systemBackgroundColor || "#f1f1f1";
 
 // if everything is defined above, this should just work
 function sliderToDataObject() {

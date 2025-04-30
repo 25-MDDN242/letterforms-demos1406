@@ -14,7 +14,7 @@ const alphabet = {
     "connectionStyle": 3
   },
   "A": {
-    "layout": 1,
+    "layout": 1, // 1: closed circle, 2: linear, 3: open circle, 4: zigzag
     "size": 90,
     "offsetX": -10,
     "offsetY": 0,

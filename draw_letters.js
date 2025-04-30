@@ -33,6 +33,8 @@ function drawLetter(letterData) {
   let c1x = offsetX + customStationX;
   let c1y = offsetY + customStationY;
   
+  // mathematics assisted by ChatGPT
+  // layout 1: closed circle, layout 2: linear, layout 3: open circle, layout 4: zig zag
   if (layout == 4) { // zig zag
     // zig‑zag layout entirely self‑contained
     let step = size / (numStations - 1);
@@ -53,7 +55,7 @@ function drawLetter(letterData) {
       } else {
         // straight-line at arbitrary angle, converted to radians
         const spacing = size / (numStations - 1);
-        const theta   = radians(lineAngle);           // p5's radians(): deg→rad
+        const theta   = radians(lineAngle);
         x = offsetX + Math.cos(theta) * spacing * i;
         y = offsetY + Math.sin(theta) * spacing * i;
       }
@@ -80,6 +82,7 @@ function drawLetter(letterData) {
     line(a.x, a.y, b.x, b.y);
   }
 
+  // Draw last connection to first station
   if (layout == 1 && stations.length > 1) {
     let first = stations[0],
         last  = stations[stations.length-1];
@@ -113,15 +116,18 @@ function drawLetter(letterData) {
 
 }
 
+// draws a line with a bend
 function drawAngularLine(x1, y1, mx, my, x2, y2) {
   line(x1, y1, mx, my);
   line(mx, my, x2, y2);
 }
 
+// draws a custom connection between two points with a bend with direction customization
 function drawCustomConnection(x1, y1, x2, y2, style = 0, ratio = 0.7){
   const dx = x2 - x1;
   const dy = y2 - y1;
 
+  // switch case coding taught by ChatGPT
   switch (style) {
     case 1: {
       // horizontal then angled into the target
@@ -131,7 +137,7 @@ function drawCustomConnection(x1, y1, x2, y2, style = 0, ratio = 0.7){
       return;
     }
     case 2: {
-      // │ then diagonal into the target
+      // vertical then diagonal into the target
       let mx = x1
       let my = y1 + dy * ratio;
       drawAngularLine(x1, y1, mx, my, x2, y2);
@@ -154,31 +160,31 @@ function drawCustomConnection(x1, y1, x2, y2, style = 0, ratio = 0.7){
     }
   }
 
-  // fallback
-  if (dx == 0 || dy == 0) {
-    drawAngularLine(x1, y1, x2, y2, x2, y2);
-    return;
-  }
-  let mx, my;
-  if (x2 > x1 && y2 < y1) {
-    mx = x1 + dx * ratio;
-    my = y2;
-  } else if (x2 > x1 && y2 > y1) {
-    mx = x1 + dx * ratio;
-    my = y1;
-  } else if (x2 < x1 && y2 > y1) {
-    mx = x1;
-    my = y1 + dy * ratio;
-  } else {
-    if (Math.abs(dx) > Math.abs(dy)) {
-      mx = x1 + dx * ratio;
-      my = y1;
-    } else {
-      mx = x1;
-      my = y1 + dy * ratio;
-    }
-  }
-  drawAngularLine(x1, y1, mx, my, x2, y2);
+  // // fallback
+  // if (dx == 0 || dy == 0) {
+  //   drawAngularLine(x1, y1, x2, y2, x2, y2);
+  //   return;
+  // }
+  // let mx, my;
+  // if (x2 > x1 && y2 < y1) {
+  //   mx = x1 + dx * ratio;
+  //   my = y2;
+  // } else if (x2 > x1 && y2 > y1) {
+  //   mx = x1 + dx * ratio;
+  //   my = y1;
+  // } else if (x2 < x1 && y2 > y1) {
+  //   mx = x1;
+  //   my = y1 + dy * ratio;
+  // } else {
+  //   if (Math.abs(dx) > Math.abs(dy)) {
+  //     mx = x1 + dx * ratio;
+  //     my = y1;
+  //   } else {
+  //     mx = x1;
+  //     my = y1 + dy * ratio;
+  //   }
+  // }
+  // drawAngularLine(x1, y1, mx, my, x2, y2);
 }
 
 

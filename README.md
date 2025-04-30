@@ -3,6 +3,7 @@
 ## MDDN 242 2025 Assignment 2
 
 ## TRAINSET
+#### Helena Whiteford
 
 Each of my letters is meant to resemble a line in a public transport train map, much like the London Tube map design by Harry Beck. The system is modular: each letter is made of connected stations and custom connections, and either circular or linear layouts can be decided.
 
