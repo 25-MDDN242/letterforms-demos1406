@@ -1,12 +1,10 @@
+
 /* these are optional special variables which will change the system */
-var systemBackgroundColor = "#acf2e7";
+var systemBackgroundColor = "#f1f1f1";
 var systemLineColor = "#000090";
 var systemBoxColor = "#C73869";
 
 /* internal constants */
-const darkGreen  = "#26b29d";
-const lightGreen  = "#30dfc4";
-const strokeColor  = "#0a2d27";
 
 /*
  * Draw the letter given the letterData
@@ -15,33 +13,248 @@ const strokeColor  = "#0a2d27";
  * following bounding box guideline:
  * from (0,0) to (100, 200)
  */
+
 function drawLetter(letterData) {
-  // color/stroke setup
-  stroke(strokeColor);
-  strokeWeight(4);
+  let offsetX = 50 + letterData["offsetX"];
+  let offsetY = 150 + letterData["offsetY"];
+  let numStations = letterData["numStations"];
+  let size = letterData["size"];
+  let lineColour = letterData["lineColour"]
+  let customStationX = letterData["customStationX"]
+  let customStationY = letterData["customStationY"]
+  let customConnectionX = letterData["customConnectionX"]
+  let customConnectionY = letterData["customConnectionY"]
+  let connectionStyle = letterData["connectionStyle"]
+  let layout = letterData["layout"]
+  let lineAngle = letterData["lineAngle"]
 
-  // determine parameters for second circle
-  let size2 = letterData["size"];
-  let pos2x = 50  + letterData["offsetx"];
-  let pos2y = 150 + letterData["offsety"];
+  let stations = [];
 
-  // draw two circles
-  fill(darkGreen);
-  ellipse(50, 150, 75, 75);
-  fill(lightGreen);
-  ellipse(pos2x, pos2y, size2, size2);
+  let c1x = offsetX + customStationX;
+  let c1y = offsetY + customStationY;
+  
+  // mathematics assisted by ChatGPT
+  // layout 1: closed circle, layout 2: linear, layout 3: open circle, layout 4: zig zag
+  if (layout == 4) { // zig zag
+    // zig‑zag layout entirely self‑contained
+    let step = size / (numStations - 1);
+    for (let i = 0; i < numStations; i++) {
+      let x = offsetX + step * i;
+      let y = offsetY + (i % 2 == 0 ? 0 : size);
+      stations.push({ x, y });
+    }
+  } else {
+    for (let i = 0; i < numStations; i++) {
+      let x, y;
+      if (layout == 1 || layout == 3) {
+        // true circle in radians
+        const radius  = size / 2;
+        const theta   = TWO_PI * i / numStations;     // already in radians
+        x = offsetX + Math.cos(theta) * radius;
+        y = offsetY + Math.sin(theta) * radius;
+      } else {
+        // straight-line at arbitrary angle, converted to radians
+        const spacing = size / (numStations - 1);
+        const theta   = radians(lineAngle);
+        x = offsetX + Math.cos(theta) * spacing * i;
+        y = offsetY + Math.sin(theta) * spacing * i;
+      }
+      stations.push({ x, y });
+    }
+  }
+
+  let c1 = { x: c1x, y: c1y}
+
+  if (layout !== 1) {
+    stations.push(c1);  
+  }
+
+  let colours = ["#F29DB2","#ffd206","#ef3423","#1f4492","#0fa1d4","#048a35"]
+
+
+  // Draw connections
+  stroke(colours[lineColour]);
+  strokeWeight(6);
+  for (let i = 0; i < numStations - 1; i++) {
+    if (i + 1 >= stations.length) break;
+    let a = stations[i];
+    let b = stations[i + 1];
+    line(a.x, a.y, b.x, b.y);
+  }
+
+  // Draw last connection to first station
+  if (layout == 1 && stations.length > 1) {
+    let first = stations[0],
+        last  = stations[stations.length-1];
+    line(last.x, last.y, first.x, first.y);
+  }
+  
+
+  // Draw custom connections
+  let startX = offsetX + customConnectionX;
+  let startY = offsetY + customConnectionY;
+  let endX = offsetX + customStationX;
+  let endY = offsetY + customStationY;
+
+  drawCustomConnection(startX, startY, endX, endY, connectionStyle);
+
+  // Draw stations
+  fill("#f1f1f1");
+  stroke("#3b2f2f");
+  strokeWeight(3.5);
+
+  // Draw custom stations
+  ellipse(c1x, c1y, 12);
+  ellipse(startX, startY, 12);
+
+  for (let i = 0; i < stations.length; i++) {
+    let s = stations[i];
+      strokeWeight(3.5);
+      ellipse(s.x, s.y, 12);
+  }
+
+
 }
+
+// draws a line with a bend
+function drawAngularLine(x1, y1, mx, my, x2, y2) {
+  line(x1, y1, mx, my);
+  line(mx, my, x2, y2);
+}
+
+// draws a custom connection between two points with a bend with direction
+function drawCustomConnection(x1, y1, x2, y2, style = 0, ratio = 0.7){
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+
+  // switch case coding taught by ChatGPT
+  switch (style) {
+    case 1: {
+      // horizontal then angled into the target
+      let mx = x1 + dx * ratio;
+      let my = y1;
+      drawAngularLine(x1, y1, mx, my, x2, y2);
+      return;
+    }
+    case 2: {
+      // vertical then diagonal into the target
+      let mx = x1
+      let my = y1 + dy * ratio;
+      drawAngularLine(x1, y1, mx, my, x2, y2);
+      return;
+    }
+    case 3: {
+      // diagonal out, then horizontal
+      let mx = x1 + dx * ratio;
+      let my = y2
+      drawAngularLine(x1,y1,mx,my,x2,y2);
+      return;
+    }
+
+    case 4: {
+      // diagonal out, then vertical
+      let mx = x2
+      let my = y1 + dy * ratio;
+      drawAngularLine(x1,y1,mx,my,x2,y2);
+      return;
+    }
+  }
+
+  // fallback - required for interpolation animation
+  if (dx == 0 || dy == 0) {
+    drawAngularLine(x1, y1, x2, y2, x2, y2);
+    return;
+  }
+  let mx, my;
+  if (x2 > x1 && y2 < y1) {
+    mx = x1 + dx * ratio;
+    my = y2;
+  } else if (x2 > x1 && y2 > y1) {
+    mx = x1 + dx * ratio;
+    my = y1;
+  } else if (x2 < x1 && y2 > y1) {
+    mx = x1;
+    my = y1 + dy * ratio;
+  } else {
+    if (Math.abs(dx) > Math.abs(dy)) {
+      mx = x1 + dx * ratio;
+      my = y1;
+    } else {
+      mx = x1;
+      my = y1 + dy * ratio;
+    }
+  }
+  drawAngularLine(x1, y1, mx, my, x2, y2);
+}
+
 
 function interpolate_letter(percent, oldObj, newObj) {
   let new_letter = {};
-  new_letter["size"]    = map(percent, 0, 100, oldObj["size"], newObj["size"]);
-  new_letter["offsetx"] = map(percent, 0, 100, oldObj["offsetx"], newObj["offsetx"]);
-  new_letter["offsety"] = map(percent, 0, 100, oldObj["offsety"], newObj["offsety"]);
+
+  // smooth tween of most parameters
+  new_letter["size"]              = map(percent,   0, 100, oldObj["size"],             newObj["size"]);
+  new_letter["offsetX"]           = map(percent,   0, 100, oldObj["offsetX"],          newObj["offsetX"]);
+  new_letter["offsetY"]           = map(percent,   0, 100, oldObj["offsetY"],          newObj["offsetY"]);
+  new_letter["customStationX"]    = map(percent,   0, 100, oldObj["customStationX"],    newObj["customStationX"]);
+  new_letter["customStationY"]    = map(percent,   0, 100, oldObj["customStationY"],    newObj["customStationY"]);
+  new_letter["customConnectionX"] = map(percent,   0, 100, oldObj["customConnectionX"], newObj["customConnectionX"]);
+  new_letter["customConnectionY"] = map(percent,   0, 100, oldObj["customConnectionY"], newObj["customConnectionY"]);
+  new_letter["lineAngle"]         = map(percent,   0, 100, oldObj["lineAngle"] || 0,    newObj["lineAngle"] || 0);
+  new_letter["connectionStyle"]   = Math.round(map(percent, 0, 100, oldObj["connectionStyle"] || 0, newObj["connectionStyle"] || 0));
+  
+  // colour switch at 50%
+  new_letter["lineColour"]        = (percent < 50
+    ? oldObj["lineColour"]
+    : newObj["lineColour"]
+  );
+
+  // piecewise station count, but skip 2:
+  if (percent < 50) {
+    // shrink old → 1
+    let raw = map(percent, 0, 50, oldObj["numStations"], 1);
+    let n   = Math.round(raw);
+    if (n == 2) n = 1;            // skip over 2 on the way down
+    new_letter["numStations"] = n;
+  }
+  else {
+    // grow 1 → new
+    let raw = map(percent, 50, 100, 1, newObj["numStations"]);
+    let n   = Math.round(raw);
+    if (n == 2) n = 3;            // skip over 2 on the way up
+    new_letter["numStations"] = n;
+  }
+
+  // piecewise layout as before
+  new_letter["layout"] = percent < 50
+    ? oldObj["layout"]
+    : newObj["layout"];
+
+  // colour switch
+  new_letter["lineColour"] = percent < 50
+    ? oldObj["lineColour"]
+    : newObj["lineColour"];
+
   return new_letter;
 }
 
 var swapWords = [
-  "ABBAABBA",
-  "CAB?CAB?",
-  "BAAAAAAA"
+  "TRAINSET",
+  "AUCKLAND",
+  "BRISBANE",
+  " LONDON ",
+  "HONGKONG",
+  "SHANGHAI",
+  " ATHENS ",
+  "ISTANBUL",
+  "CAPETOWN",
+  " BERLIN ",
+  "NEW YORK",
+  "SANTIAGO",
+  "YOKOHAMA",
+  "PORTLAND",
+  " BOSTON ",
+  "FLORENCE",
+  "BUDAPEST",
+  "PASADENA",
+  "01234567"
 ]

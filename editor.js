@@ -5,9 +5,19 @@
  * ["object_field", minimum_bound, maximum_bound]
  */
 const sliderInfo = [
-  ["size",       0, 100],
-  ["offsetx",  -30,  30],
-  ["offsety", -100, 100]
+  ["layout",     1, 2], // 1
+  ["size",       0, 200], // 2
+  ["offsetX",  -30,  30], // 3
+  ["offsetY", -100, 100], // 4
+  ["numStations", 0, 10], // 5
+  ["lineColour", 0, 5], // 6
+  ["lineAngle",  -360, 360], // 7
+  ["customStationX", -100, 100], // 8 
+  ["customStationY", -100, 100], // 9
+  ["customConnectionX", -100, 100], // 10
+  ["customConnectionY", -100, 100], // 11
+  ["connectionStyle", 1, 4], // 12
+
 ];
 
 // PROBABLY DON'T NEED TO EDIT ANYTHING ELSE. STOP HERE.
@@ -15,20 +25,30 @@ const sliderInfo = [
 const numSliders = sliderInfo.length;
 
 if (typeof systemBackgroundColor === 'undefined') {
-    var systemBackgroundColor = "#e3eded";
+    var systemBackgroundColor = "#f1f1f1";
 }
 
 // this will use variables if they are already defined
-// var systemBackgroundColor = systemBackgroundColor || "#e3eded";
+// var systemBackgroundColor = systemBackgroundColor || "#f1f1f1";
 
 // if everything is defined above, this should just work
 function sliderToDataObject() {
   let obj = {};
-  for (let i=0; i<numSliders; i=i+1) {
-    o_name = sliderInfo[i][0]
-    bounds_low = sliderInfo[i][1]
-    bounds_high = sliderInfo[i][2]
-    obj[o_name] = map(param_sliders[i].value(), 0, 100, bounds_low, bounds_high);
+  for (let i = 0; i < numSliders; i++) {
+    const name      = sliderInfo[i][0];
+    const low       = sliderInfo[i][1];
+    const high      = sliderInfo[i][2];
+    let   value     = map(param_sliders[i].value(), 0, 100, low, high);
+
+    // force these params to integers
+    if (name === "layout" 
+     || name === "connectionStyle" 
+     || name === "numStations"
+     || name === "lineColour") {
+      value = Math.round(value);
+    }
+
+    obj[name] = value;
   }
   return obj;
 }
@@ -53,7 +73,9 @@ function setup () {
   for(let i=0; i<numSliders; i++) {
     let cur_row = select("#row" + (i+1))
     cur_row.show();
-    let cur_slider = createSlider(0, 100, 50)
+    let cur_slider
+    cur_slider = createSlider(0, 100, 50)
+    
     let containerString = "slider" + (i+1) + "Container"
     cur_slider.parent(containerString);
     param_sliders.push(cur_slider);
