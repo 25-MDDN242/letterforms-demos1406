@@ -255,5 +255,6 @@ var swapWords = [
   " BOSTON ",
   "FLORENCE",
   "BUDAPEST",
-  "PASADENA"
+  "PASADENA",
+  "01234567"
 ]

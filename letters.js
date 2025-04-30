@@ -342,7 +342,7 @@ const alphabet = {
     "numStations": 10,
     "layout": 1,
     "size": 100,
-    "lineColour": 3
+    "lineColour": 2
   },
   "1": {
     "offsetX": -50,
@@ -358,7 +358,7 @@ const alphabet = {
     "numStations": 2,
     "size": 90,
     "layout": 1,
-    "lineColour": 2
+    "lineColour": 3
   },
   "3": {
     "offsetX": -10,
@@ -366,7 +366,7 @@ const alphabet = {
     "numStations": 3,
     "size": 90,
     "layout": 1,
-    "lineColour": 1
+    "lineColour": 3
   },
   "4": {
     "offsetX": 0,
@@ -374,7 +374,7 @@ const alphabet = {
     "numStations": 4,
     "size": 90,
     "layout": 1,
-    "lineColour": 1
+    "lineColour": 4
   },
   "5": {
     "offsetX": 0,
@@ -382,7 +382,7 @@ const alphabet = {
     "numStations": 5,
     "size": 90,
     "layout": 1,
-    "lineColour": 5
+    "lineColour": 4
   },
   "6": {
     "offsetX": 0,
@@ -398,7 +398,7 @@ const alphabet = {
     "numStations": 7,
     "size": 90,
     "layout": 1,
-    "lineColour": 4
+    "lineColour": 5
   },
   "8": {
     "offsetX": 0,
@@ -406,7 +406,7 @@ const alphabet = {
     "numStations": 8,
     "size": 90,
     "layout": 1,
-    "lineColour": 4
+    "lineColour": 1
   },
   "9": {
     "offsetX": 0,
@@ -414,7 +414,7 @@ const alphabet = {
     "numStations": 9,
     "size": 90,
     "layout": 1,
-    "lineColour": 3
+    "lineColour": 1
   }
 
 }
