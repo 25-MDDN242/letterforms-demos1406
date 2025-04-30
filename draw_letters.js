@@ -122,7 +122,7 @@ function drawAngularLine(x1, y1, mx, my, x2, y2) {
   line(mx, my, x2, y2);
 }
 
-// draws a custom connection between two points with a bend with direction customization
+// draws a custom connection between two points with a bend with direction
 function drawCustomConnection(x1, y1, x2, y2, style = 0, ratio = 0.7){
   const dx = x2 - x1;
   const dy = y2 - y1;
@@ -160,31 +160,31 @@ function drawCustomConnection(x1, y1, x2, y2, style = 0, ratio = 0.7){
     }
   }
 
-  // // fallback
-  // if (dx == 0 || dy == 0) {
-  //   drawAngularLine(x1, y1, x2, y2, x2, y2);
-  //   return;
-  // }
-  // let mx, my;
-  // if (x2 > x1 && y2 < y1) {
-  //   mx = x1 + dx * ratio;
-  //   my = y2;
-  // } else if (x2 > x1 && y2 > y1) {
-  //   mx = x1 + dx * ratio;
-  //   my = y1;
-  // } else if (x2 < x1 && y2 > y1) {
-  //   mx = x1;
-  //   my = y1 + dy * ratio;
-  // } else {
-  //   if (Math.abs(dx) > Math.abs(dy)) {
-  //     mx = x1 + dx * ratio;
-  //     my = y1;
-  //   } else {
-  //     mx = x1;
-  //     my = y1 + dy * ratio;
-  //   }
-  // }
-  // drawAngularLine(x1, y1, mx, my, x2, y2);
+  // fallback - required for interpolation animation
+  if (dx == 0 || dy == 0) {
+    drawAngularLine(x1, y1, x2, y2, x2, y2);
+    return;
+  }
+  let mx, my;
+  if (x2 > x1 && y2 < y1) {
+    mx = x1 + dx * ratio;
+    my = y2;
+  } else if (x2 > x1 && y2 > y1) {
+    mx = x1 + dx * ratio;
+    my = y1;
+  } else if (x2 < x1 && y2 > y1) {
+    mx = x1;
+    my = y1 + dy * ratio;
+  } else {
+    if (Math.abs(dx) > Math.abs(dy)) {
+      mx = x1 + dx * ratio;
+      my = y1;
+    } else {
+      mx = x1;
+      my = y1 + dy * ratio;
+    }
+  }
+  drawAngularLine(x1, y1, mx, my, x2, y2);
 }
 
 
